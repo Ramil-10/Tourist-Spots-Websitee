@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <link rel="icon" href="tabImg.jpg">
+    <style>
+        html {
+    scroll-behavior: smooth;
+        }
+        body{
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+        
+        }
+        .backgroundImg{
+            margin: 0px;
+                background:
+                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('backgroundimg.jpg');
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding-bottom: 3rem;
+        }
+        /* ================= HEADER ================= */
+
+        .back-to-top{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,.3);
+
+            transition: .3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top:hover{
+            background: #2980b9;
+            transform: translateY(-5px);
+        }
+
+        header{
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 1.5rem;
+            padding-left: 1.5rem;
+            background: rgb(17, 97, 132);
+            backdrop-filter: blur(5px);
+        }
+        .navigation{
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            animation: fadeup 0.8s ease forwards;
+        }
+        .airplane{
+            width: 16%;
+            margin: 0px;
+            position: relative;
+            animation: airplaneLoop 8s linear infinite ;
+
+        
+        }
+        
+        @keyframes airplaneLoop {
+            0% {
+                transform: translateX(0) scaleX(1)  ;
+            }
+
+            49% {
+                transform: translateX(300px) scaleX(1) rotate(-8deg);
+            }
+
+            50% {
+                transform: translateX(300px) scaleX(-1)rotate(8deg);
+            }
+
+            99% {
+                transform: translateX(0) scaleX(-1)rotate(-14deg);
+            }
+
+            100% {
+                transform: translateX(0) scaleX(1)rotate(8deg);
+            }
+        }
+        ol{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        li{
+            display: inline-block;
+        }
+
+        .nav-anchortag{
+            text-decoration: none;
+            color: white;
+            font-family: sans-serif;
+            font-size: 0.95rem;
+            padding: 8px;
+            position: relative;
+            transition: 0.4s ease;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .nav-anchortag:hover{
+            color: #615757;
+        }
+
+        .nav-anchortag::after{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            left: 0;
+            bottom: -4px;
+
+            background-color: white;
+
+            transform: scaleX(0);
+            transform-origin: right;
+
+            transition: transform 0.4s ease;
+        }
+
+        .nav-anchortag:hover::after{
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .gallery{
+        border-bottom: 2px solid white;
+        }
+        /* =========== ANIMATION KEYFRAMES FOR ALL=========== */
+        @keyframes fadeup{
+            from{
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+         
+
+        /*====================== ASIDE =======================*/
+        aside{
+            
+            border-radius: 3%;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+
+            animation: fadeup 1s ease forwards;
+        }
+        .aside-explore{
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px black;
+            max-width: 80%;
+            font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        .aside-discover{
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px black;
+            max-width: 80%;
+            font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        .search{
+            width: max-content;
+            display: flex;
+            align-items: center;
+            padding: 2%;
+            border-radius: 28px;
+            background: #f6f6f6;
+            transition: box-shadow 0.25s;
+        }
+        .search:focus-within{
+            box-shadow: 0 0 2px rgba(0,0,0,0.75);
+        }
+        .search-input{
+            font-size: 1rem;
+            font-family: 'Lexend', sans-serif;
+            color: #333333;
+            outline: none;
+            border: none;
+            background: transparent;
+            width: 500px;
+            
+        }
+        .search-input::placeholder,
+        .search-icon{
+            color: rgba(0,0,0,0.25);
+        }
+        /*============== SECTION ==============*/
+        .section-heading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: sans-serif;
+            text-shadow: 2px 2px 5px black;
+            font-size: 120%;
+
+            animation: fadeup 0.8s ease forwards;
+        }
+        
+         .section-heading h1{
+            max-width: 60%;
+            
+        }
+
+        .destination-text{
+            max-width: 70%;
+        }
+        
+        .img{
+            width:100%;
+            height:200px;
+            object-fit:cover;
+            display:block;
+        }
+
+        .whole-container{
+            display:flex;
+            justify-content:center;
+            padding:20px;
+        }
+
+        .outer-container{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:space-evenly;
+            gap:20px;
+            width:100%;
+            max-width:1200px;
+            padding:20px;
+            background:#f6f6f6;
+            box-shadow:0 2px 5px rgba(0,0,0,.2);
+            border-radius:12px;
+
+            
+        }
+
+        .inner-container{
+            flex:1 1 250px;
+            max-width:260px;
+            min-width:220px;
+            background:#fff;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 5px 15px rgba(0,0,0,.2);
+            transition:transform .3s ease;
+
+            animation: fadeup 0.8s ease forwards;
+        }
+        .text-category{
+            text-align:center;
+            margin:0;
+            font-weight:bold;
+        }
+        .color-text{
+            background:skyblue;
+            padding:10px;
+        }
+        .text-description{
+            text-align:center;
+            padding:12px;
+            margin:0;
+        }
+        /*============== ARTICLE ==============*/
+        .article-text{
+            
+            font-family:  Georgia, 'Times New Roman', Times, serif;
+            text-shadow: 2px 2px 5px black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+             
+        }
+        .statistics-container{
+            font-size: 115%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: white; 
+            width: 50rem;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+
+            animation: fadeup 0.8s ease forwards;
+        }
+        .backgroundImg-article{
+             background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)),
+                url('backgroundimg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding-top: 1rem;
+            padding-bottom: 3rem;
+        }
+        
+        .container-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container-img{
+            display: flex;
+            width: 30rem;
+            height: 20rem;
+            gap: 10px;
+            animation: fadeup 0.8s ease forwards;
+        }
+        .card{
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            cursor: pointer;
+            filter: grayscale(80%);
+            background-color: black;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.50);
+            transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            
+        }
+
+        .gallery-title{
+            text-align:center;
+            color:white;
+            font-family:serif;
+            margin-bottom:30px;
+            font-size: 300%;
+            text-shadow: 2px 2px 5px black;
+        }
+        .img1{
+            background-image: url(elnido.jpg);
+        }
+        .img2{
+            background-image: url(Palawan.jpg);
+        }
+        .img3{
+            background-image: url(Siargao.jpg);
+        }
+        .card:hover{
+            flex: 2;
+            filter: grayscale(0%);
+        }
+        /*================ ASIDE =================*/
+        .background-color{
+                background: linear-gradient(
+        to right,
+        #2c3e50,
+        #34495e,
+        #4ca1af
+        );
+
+        padding: 3rem;
+        }
+
+        .film-gallery{
+            width:100%;
+            overflow:hidden;
+            padding:50px 0;
+            background:#111;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            border: 1px solid white;
+            box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.50);
+        }
+
+        .slider{
+            width:100%;
+            overflow:hidden;
+            animation: fadeup 0.8s ease forwards;
+        }
+
+        .slide-track{
+            display:flex;
+            width:calc(250px * 10);
+            animation: scroll 25s linear infinite;
+        }
+
+        .slide-track img{
+            width:250px;
+            height:180px;
+            object-fit:cover;
+            margin:0 10px;
+            border-radius:10px;
+            border: 3px solid white;
+        }
+
+        /* Infinite Loop */
+        @keyframes scroll{
+
+            from{
+                transform:translateX(0);
+            }
+
+            to{
+                transform:translateX(calc(-260px * 5));
+            }
+
+        }
+        /* ================ MASONRY =================*/
+
+        .masonry-section{
+            padding:50px 20px;
+            background:#111;
+            border-bottom-left-radius:30px;
+            border-bottom-right-radius: 30px;
+            border: 1px solid white;
+            box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.50);
+        }
+
+        .masonry-gallery{
+            column-count:4;
+            column-gap:15px;
+            
+        }
+
+        .masonry-gallery img{
+            width:100%;
+            margin-bottom:15px;
+            border-radius:12px;
+            display:block;
+            cursor:pointer;
+            box-shadow:0 5px 15px rgba(0,0,0,.3);
+            border: 3px solid white;
+
+            animation: fadeup 0.8s ease forwards;
+        }
+
+        .masonry-gallery img:hover{
+            transform:scale(1.03);
+            filter:brightness(1.1);
+        }
+
+ 
+        /* ================= FOOTER =================*/
+
+        .footer {
+        background: #222;
+        color: #fff;
+        padding: 40px 20px 20px;
+        }
+
+        .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: auto;
+
+        animation: fadeup 1s ease forwards;
+        }
+
+        .footer-section h3 {
+        margin-bottom: 15px;
+        color: #f5f5f5;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        }
+
+        .footer-section ul li {
+        margin-bottom: 8px;
+        }
+
+        .footer-anchortag{
+        color: #ccc;
+        text-decoration: none;
+        }
+
+        .footer-section a:hover {
+        color: #fff;
+        }
+        .column-footer{
+            display: flex;
+            flex-direction: column;
+        }
+        .social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        }
+
+        .footer-bottom {
+        text-align: center;
+        border-top: 1px solid #444;
+        margin-top: 30px;
+        padding-top: 15px;
+        font-size: 14px;
+        color: #aaa;
+
+        animation: fadeup 1s ease forwards;
+        }
+
+        
+        /*============= MEDIA QUERY ============*/
+        @media (max-width:768px){
+          header{
+        padding-bottom: 1rem;
+        }
+
+        .masonry-gallery{
+                column-count:2;
+            }
+
+        .outer-container{
+            justify-content:center;
+        }
+
+        .inner-container{
+            width:100%;
+            max-width:320px;
+        }
+
+        .search-input{
+            width:220px;
+        }
+
+        .container-header{
+            flex-direction:column;
+            gap:20px;
+        }
+
+        .container-img{
+            width:100%;
+            max-width:400px;
+        }
+
+        .statistics-container{
+            width:90%;
+            text-align:center;
+        }
+        }
+
+        /* Tablet */
+        @media (max-width:992px){
+            .search-input{
+                width: 300px;
+            }
+            .masonry-gallery{
+                column-count:3;
+            }
+            .airplane{
+                display: none;
+            }
+            .navigation{
+            display: flex;
+            justify-content: center;
+
+            }
+             
+        }
+ 
+        /* Small phones */
+        @media (max-width:480px){
+            .masonry-gallery{
+                column-count:1;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="backgroundImg"> 
+    <header> 
+        <nav class="navigation">
+           <ol>
+                <li><a href="index.html" class="homePage nav-anchortag">Home Page</a> </li>
+                <li><a href="touristSpots.html" class="touristSpot nav-anchortag">Tourist Spots</a></li>
+                <li><a href="travelpackages.html" class="travelPackage nav-anchortag">Travel Packages</a></li>
+                <li><a href="gallery.html" class="gallery nav-anchortag">Gallery</a></li>
+                <li><a href="inquiryform.html" class="inquiryForm nav-anchortag">Inquiry Form</a></li>
+           </ol>
+        </nav>
+            <div class="airplane-content">
+            <img class="airplane" src="airPlane.png" alt="airplane">
+        </div>            
+    </header>
+
+    <a href="#top" class="back-to-top">↑</a>
+
+     <aside>
+        <h1 class="aside-explore">EXPLORE OUR TRAVEL GALLERY</h1>
+        <p class="aside-discover">Browse our collection of stunning travel moments and explore the beauty that awaits your next adventure.</p>
+        <div class="aside-search-bar">
+            <form>
+                <div class="search">
+                    <span class="search-icon material-symbols-outlined">search</span>
+                    <input class="search-input" type="search" placeholder="Search">
+                </div>
+            </form>
+        </div>
+    </aside>
+</div>
+
+    <section>
+        <div class="section-heading">
+            <h1>EXPLORE OUR DESTINATIONS</h1>
+            <p class="destination-text">Discover the beauty and culture of the Philippines through our featured tourist attractions.</p>
+        </div>
+
+<div class="whole-container">
+    <div class="outer-container">
+
+        <div class="inner-container">
+            <img class="img" src="Vigan.jpg" alt="Vigan img">
+            <div class="color-text">
+                <p class="text-category">Cultural Heritage</p>
+            </div>
+            <p class="text-description">Preserved Colonial Street</p>
+        </div>
+
+        <div class="inner-container">
+            <img class="img" src="elnido.jpg" alt="El Nido img">
+            <div class="color-text">
+                <p class="text-category">Beach Destination</p>
+            </div>
+            <p class="text-description">Crystal Clear Waters</p>
+        </div>
+
+        <div class="inner-container">
+            <img class="img" src="Best Time to Visit Philippines_ Weather, Seasons & Travel Tips.jpg" alt="Banaue Rice Terraces img">
+            <div class="color-text">
+                <p class="text-category">Nature & Landscape</p>
+            </div>
+            <p class="text-description">Ancient Mountain Wonder</p>
+        </div>
+
+        <div class="inner-container">
+            <img class="img" src="mayonvolcano.jpg" alt="Mayon Volcano">
+            <div class="color-text">
+                <p class="text-category">Volcano Attraction</p>
+            </div>
+            <p class="text-description">Perfect Cone Volcano</p>
+        </div>
+
+    </div>
+</div>
+
+    </section>
+    
+<div class="backgroundImg-article"> 
+    <article>
+         
+
+        <section class="container-header"> 
+            <div class="statistics-container">
+                <h1 class="article-text">Statistics in the philippines tourism</h1>
+                <p>🏝️ 7641 Islands</p>
+                <p>🏞️ 100+ Attractions</p>
+                <p>✈️ Millions of Visitors</p>
+            </div>
+            
+            <div class="container-img">
+                <div class="card img1"></div>
+                <div class="card img2"></div>
+                <div class="card img3"></div>
+            </div>
+        </section>
+
+    </article>
+</div>
+
+<div class="background-color">
+
+    
+<aside>
+        <h1 class="gallery-title">Gallery</h1>
+         
+    <div class="film-gallery" > 
+        <div class="slider">
+            <div class="slide-track">
+                
+                <img src="Discover the Perfect Time for Filipino Adventures!.jpg" alt="">
+                <img src="Discover Your Perfect Filipino Adventure! 🌺.jpg" alt="">
+                <img src="download (48).jpg" alt="">
+                <img src="Sunset at Boracay island in the Philippines.jpg" alt="">
+                <img src="Wer hat Bock auf 2 Wochen Gruppenreise durch die Philippinen 😎🫱🏼_🫲🏽__Insel-Hopping, Schnorcheln, Wandern, Kultur & das alles mit Gleichgesinnten die genauso viel Bock auf ein Abenteuer haben wie du 🙌🏼__Bist d.jpg" alt="">
+
+                
+                <img src="KawasanFalls.jpg" alt="">
+                <img src="palawan.jpg" alt="">
+                <img src="mayonvolcano.jpg" alt="">
+                <img src="LunetaPark.jpg" alt="">
+                <img src="Intramuros.jpg" alt="">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="masonry-section" >
+         
+
+        <div class="masonry-gallery">
+
+            <img src="elnido1.jpg" alt="">
+            <img src="elnido2.jpg" alt="">
+            <img src="elnido3.jpg" alt="">
+
+            <img src="boracay1.jpg" alt="">
+            <img src="boracay2.jpg" alt="">
+            <img src="boracay3.jpg" alt="">
+
+            <img src="mayonvolcano.jpg" alt="">
+            <img src="KawasanFalls.jpg" alt="">
+            <img src="palawan.jpg" alt="">
+
+            <img src="Intramuros.jpg" alt="">
+            <img src="LunetaPark.jpg" alt="">
+            <img src="Vigan.jpg" alt="">
+
+            <img src="Palawan.jpg" alt="">
+            <img src="Siargao.jpg" alt="">
+            <img src="download (48).jpg" alt="">
+
+        </div>
+    </div>
+
+</div>
+</aside>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-section">
+      <h3>About</h3>
+      <p>
+        We provide quality services and helpful resources to our community.
+      </p>
+    </div>
+
+    <div class="footer-section ">
+      <h3>Quick Links</h3>
+            <ul> 
+                <div class="column-footer"> 
+                    <li><a class="footer-anchortag" href="/about">About Us</a></li>
+                    <li><a class="footer-anchortag" href="/privacy-policy">Privacy Policy</a></li>
+                    <li><a class="footer-anchortag" href="/contact">Contact Us</a></li>
+                </div>
+            </ul>
+         
+    </div>
+
+    <div class="footer-section">
+      <h3>Contact Us</h3>
+      <p>Email: Group4@example.com</p>
+      <p>Phone: +46 928 521 243</p>
+    </div>
+
+    <div class="footer-section">
+            <h3>Follow Us</h3>
+        <div class="social-links">
+            <a class="footer-anchortag" href="https://www.facebook.com/ramil.sumang.50" target="_blank">Facebook</a>
+            <a class="footer-anchortag" href="https://www.instagram.com/def.rams/?hl=en" target="_blank">Instagram</a>
+            <a class="footer-anchortag" href="https://www.tiktok.com/@ryomeeennnnnnn" target="_blank">Tiktok</a>
+        </div>
+    </div>
+
+  </div>
+
+    <div class="footer-bottom">
+            <p>&copy; 2026 For School Purposes Only. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
